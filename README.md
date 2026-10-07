@@ -110,6 +110,23 @@ Both scripts pick Flutter in this order: the `FLUTTER` environment variable,
 `fvm flutter` if the project has a `.fvmrc`, the FVM `stable` SDK, then
 `flutter` on `PATH`.
 
+## App icon and splash screen
+
+The source icon is `assets/app_icon.png`. The launcher icons (adaptive icon
+with a themed-icon layer, plus a legacy icon for Android 7) and the splash
+screen image are generated from it into `android/app/src/main/res/`:
+
+```bash
+python3 scripts/generate_icons.py   # needs Pillow
+```
+
+Re-run it after replacing the source icon. If the new icon has a different
+background colour, also update `android/app/src/main/res/values/colors.xml`
+and `BACKGROUND` in the script. The splash uses the native Android 12+ splash
+API (`values-v31`, `values-night-v31`) and a layer-list drawable on older
+versions (`drawable`, `drawable-night`). In dark mode the icon is shown on an
+off-white circle.
+
 ## Testing
 
 ```bash
@@ -137,7 +154,8 @@ lib/
 android/app/src/main/kotlin/.../MainActivity.kt
                           Saves exports to Downloads (MediaStore on Android 10+,
                           public folder with storage permission on 9 and below)
-scripts/                  Emulator and release build scripts
+scripts/                  Emulator, release build and icon generation scripts
+assets/app_icon.png       Source app icon
 test/                     Unit tests
 ```
 

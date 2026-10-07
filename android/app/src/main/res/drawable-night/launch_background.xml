@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark-mode splash for Android 11 and below: the icon is drawn on an
+     off-white circle so its dark artwork stays visible. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/splash_background_dark" />
+    <item
+        android:width="192dp"
+        android:height="192dp"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="@color/splash_background" />
+        </shape>
+    </item>
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_icon" />
+    </item>
+</layer-list>

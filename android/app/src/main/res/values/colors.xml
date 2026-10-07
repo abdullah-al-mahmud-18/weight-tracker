@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Off-white of assets/app_icon.png (see scripts/generate_icons.py). -->
+    <color name="ic_launcher_background">#F8F7F1</color>
+    <color name="splash_background">#F8F7F1</color>
+    <!-- Dark splash background; the icon sits on an off-white circle. -->
+    <color name="splash_background_dark">#191C1B</color>
+</resources>
