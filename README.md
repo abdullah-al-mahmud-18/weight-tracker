@@ -167,3 +167,7 @@ test/                     Unit tests
 Entries are stored in SQLite (`entries` table, UTC timestamps in
 milliseconds); height is stored with `shared_preferences`. `CLAUDE.md` has the
 full specification.
+
+## License
+
+Released under the [MIT License](LICENSE).
