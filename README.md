@@ -102,11 +102,14 @@ scripts/build_release.sh
 ```
 
 This builds obfuscated, shrunk release APKs, one per CPU type, in
-`build/app/outputs/flutter-apk/`. For a phone, install
-`app-arm64-v8a-release.apk`:
+`build/app/outputs/flutter-apk/`. It then moves the arm64-v8a APK, the one for
+phones, to your Downloads folder as `weight_tracker_<version>.apk`. The version
+comes from `version.txt` (e.g. `v1.0.1` gives `weight_tracker_v1.0.1.apk`), so
+update it along with `version` in `pubspec.yaml` for each release. Install it
+with:
 
 ```bash
-adb install build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+adb install ~/Downloads/weight_tracker_v1.0.1.apk
 ```
 
 Debug symbols are written to `build/symbols`. Keep them for each release you
