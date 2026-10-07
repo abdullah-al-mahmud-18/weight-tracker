@@ -46,3 +46,6 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Release notes (published on GitHub Releases, not committed)
+RELEASE.md
