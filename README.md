@@ -6,6 +6,11 @@ Flutter and Material 3.
 Everything stays on the device: no account, no network access (the release
 build does not request the `INTERNET` permission), no analytics or ads.
 
+> **Vibe coded by Claude.** This app was built by
+> [Claude Code](https://claude.com/claude-code) (Anthropic's AI coding agent)
+> from the specification in [`CLAUDE.md`](CLAUDE.md), with the author
+> directing the work.
+
 ## Features
 
 - **Quick logging.** Enter your weight in kg and tap **Add**. Log as many times
