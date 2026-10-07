@@ -131,10 +131,19 @@ void main() {
       expect(parseWeightInput(' 72 ').value, 72.0);
     });
 
+    test('accepts up to two decimal places', () {
+      expect(parseWeightInput('88.65').value, 88.65);
+      expect(parseWeightInput('88,65').value, 88.65);
+      expect(parseWeightInput('88.5').value, 88.5);
+    });
+
     test('rejects invalid input', () {
       expect(parseWeightInput('').isValid, isFalse);
       expect(parseWeightInput('abc').isValid, isFalse);
-      expect(parseWeightInput('72.45').isValid, isFalse);
+      expect(parseWeightInput('72.456').isValid, isFalse);
+      expect(parseWeightInput('72.').isValid, isFalse);
+      expect(parseWeightInput('72.4.5').isValid, isFalse);
+      expect(parseWeightInput('7e1').isValid, isFalse);
       expect(parseWeightInput('19.9').isValid, isFalse);
       expect(parseWeightInput('300.1').isValid, isFalse);
       expect(parseWeightInput('-70').isValid, isFalse);
@@ -143,6 +152,25 @@ void main() {
     test('accepts range boundaries', () {
       expect(parseWeightInput('20').isValid, isTrue);
       expect(parseWeightInput('300.0').isValid, isTrue);
+      expect(parseWeightInput('300.00').isValid, isTrue);
+      expect(parseWeightInput('300.01').isValid, isFalse);
+    });
+  });
+
+  group('isPartialWeightInput', () {
+    test('allows digits and one separator with up to two decimals', () {
+      for (final t in ['', '8', '88', '88.', '88,', '88.6', '88.65', '.5']) {
+        expect(isPartialWeightInput(t), isTrue, reason: t);
+      }
+    });
+
+    test('blocks letters, symbols and extra decimals', () {
+      for (final t in [
+        'a', '88a', '-', '-8', '+8', '8 8', '88.6.', '88.,', '88.655', '1000',
+        '8e2', '88%',
+      ]) {
+        expect(isPartialWeightInput(t), isFalse, reason: t);
+      }
     });
   });
 }

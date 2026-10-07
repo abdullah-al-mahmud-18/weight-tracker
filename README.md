@@ -15,10 +15,12 @@ build does not request the `INTERNET` permission), no analytics or ads.
 
 - **Quick logging.** Enter your weight in kg and tap **Add**. Log as many times
   a day as you like; each entry is saved with the current time. Both `.` and
-  `,` work as the decimal separator. Values must be 20–300 kg with at most one
-  decimal place.
+  `,` work as the decimal separator. Values must be 20–300 kg with at most two
+  decimal places (e.g. `88.65`). The field only accepts digits and a single
+  separator; letters and other symbols can't be typed.
 - **Today's average.** The Home page shows the average of today's entries and
-  how many there are, plus a list of today's entries (newest first). Swipe an
+  how many there are, plus a list of today's entries (newest first). Weights
+  and averages are shown with up to two decimals (e.g. `88.65 kg`). Swipe an
   entry left to delete it, with **Undo**.
 - **History.** Switch between:
   - **Daily (30 days)**: the average for each day with entries, today plus the

@@ -73,8 +73,12 @@ class _WeightInputState extends ConsumerState<WeightInput> {
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             textInputAction: TextInputAction.done,
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
-              LengthLimitingTextInputFormatter(6),
+              // Reject any edit that would add letters, symbols, a second
+              // separator or a third decimal place.
+              TextInputFormatter.withFunction(
+                (oldValue, newValue) =>
+                    isPartialWeightInput(newValue.text) ? newValue : oldValue,
+              ),
             ],
             decoration: InputDecoration(
               labelText: 'Weight',

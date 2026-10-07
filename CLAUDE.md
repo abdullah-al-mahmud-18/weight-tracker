@@ -104,7 +104,7 @@ UNIQUE(timestamp_ms, weight_kg)
 Plus an index on `timestamp_ms`. DB version 1; write the open helper so future migrations are easy.
 
 - Store time as UTC epoch ms. **All grouping by day/month uses the device's local time zone** (convert with `DateTime.fromMillisecondsSinceEpoch(ms).toLocal()` semantics).
-- Store weight as entered (one decimal place max). Round only for display.
+- Store weight as entered (two decimal places max). Round only for display.
 
 ### Height (shared_preferences)
 
@@ -117,9 +117,10 @@ Plus an index on `timestamp_ms`. DB version 1; write the open helper so future m
 Material 3 `NavigationBar` with four destinations: **Home**, **History**, **BMI**, **Data**.
 
 ### 5.2 Home page
-- Top: a prominent card "Today's average" showing the average to 1 decimal (e.g. `72.4 kg`) and a subtitle like "from 5 entries". If no entries today: show "No entries today".
+- Top: a prominent card "Today's average" showing the average to up to 2 decimals (e.g. `72.43 kg`) and a subtitle like "from 5 entries". If no entries today: show "No entries today".
 - Input: a numeric text field (decimal keyboard, suffix "kg") and an "Add" button. On submit, save `(now, weight)`, clear the field, show a short SnackBar, and update the average immediately.
-- Validation: number, `20.0 ≤ weight ≤ 300.0`, max 1 decimal place. Accept both `.` and `,` as decimal separator. Show inline error text, never crash.
+- Validation: number, `20.0 ≤ weight ≤ 300.0`, max 2 decimal places (e.g. `88.65`). Accept both `.` and `,` as decimal separator. The field only lets the user type digits and a single separator (no letters or other symbols, no third decimal). Show inline error text, never crash.
+- All weights and weight averages (Home, History, BMI) are displayed with up to 2 decimals (`0.0#`: `72.0`, `72.4`, `88.65`). The BMI value itself stays at 1 decimal.
 - Below: list of today's entries (time `HH:mm` + weight), newest first. Swipe to delete with an "Undo" SnackBar. (Small addition so typos can be corrected.)
 
 ### 5.3 BMI page

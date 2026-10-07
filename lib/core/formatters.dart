@@ -1,12 +1,13 @@
 import 'package:intl/intl.dart';
 
 final NumberFormat _oneDecimal = NumberFormat('0.0', 'en_US');
+final NumberFormat _upToTwoDecimals = NumberFormat('0.0#', 'en_US');
 
-/// `72.4` (one decimal, `.` separator).
+/// `24.9` (one decimal, `.` separator).
 String formatNumber1(double value) => _oneDecimal.format(value);
 
-/// `72.4 kg`
-String formatWeight(double kg) => '${formatNumber1(kg)} kg';
+/// A weight with up to two decimals: `72.0 kg`, `72.4 kg`, `88.65 kg`.
+String formatWeight(double kg) => '${_upToTwoDecimals.format(kg)} kg';
 
 /// `08:15`
 String formatTime(DateTime t) => DateFormat('HH:mm').format(t.toLocal());

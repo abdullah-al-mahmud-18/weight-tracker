@@ -62,11 +62,20 @@ class WeightInputResult {
   bool get isValid => value != null;
 }
 
-final RegExp _weightPattern = RegExp(r'^\d+([.,]\d)?$');
+final RegExp _weightPattern = RegExp(r'^\d+([.,]\d{1,2})?$');
+
+final RegExp _partialWeightPattern = RegExp(r'^\d{0,3}([.,]\d{0,2})?$');
+
+/// Whether [text] is an acceptable in-progress weight while typing: digits
+/// only, at most one `.` or `,` separator and at most two decimal places.
+///
+/// Used to block letters and symbols as they are typed; the full value is
+/// still checked by [parseWeightInput] on submit.
+bool isPartialWeightInput(String text) => _partialWeightPattern.hasMatch(text);
 
 /// Validates weight text typed by the user.
 ///
-/// Accepts `.` or `,` as decimal separator, at most one decimal place, and a
+/// Accepts `.` or `,` as decimal separator, at most two decimal places, and a
 /// value between [minWeightKg] and [maxWeightKg].
 WeightInputResult parseWeightInput(String input) {
   final text = input.trim();
@@ -75,7 +84,7 @@ WeightInputResult parseWeightInput(String input) {
     return const WeightInputResult.invalid('Enter a valid number');
   }
   if (!_weightPattern.hasMatch(text)) {
-    return const WeightInputResult.invalid('Use at most 1 decimal place');
+    return const WeightInputResult.invalid('Use at most 2 decimal places');
   }
   final value = double.parse(text.replaceAll(',', '.'));
   if (!isWeightInRange(value)) {
