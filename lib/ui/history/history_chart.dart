@@ -41,6 +41,7 @@ class HistoryChart extends StatelessWidget {
     final ys = points.map((p) => p.y);
     final minY = (ys.reduce(math.min) - 1).floorToDouble();
     final maxY = (ys.reduce(math.max) + 1).ceilToDouble();
+    final yInterval = math.max(1, ((maxY - minY) / 4).ceil()).toDouble();
     final labelStyle = theme.textTheme.labelSmall?.copyWith(
       color: scheme.onSurfaceVariant,
     );
@@ -70,6 +71,7 @@ class HistoryChart extends StatelessWidget {
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: 40,
+                  interval: yInterval,
                   getTitlesWidget: (value, meta) => SideTitleWidget(
                     meta: meta,
                     child: Text(value.toStringAsFixed(0), style: labelStyle),
@@ -82,12 +84,22 @@ class HistoryChart extends StatelessWidget {
                   reservedSize: 28,
                   interval: labelInterval.toDouble(),
                   getTitlesWidget: (value, meta) {
-                    if (value != value.roundToDouble()) {
+                    final x = value.round();
+                    if (value != x.toDouble()) {
+                      return const SizedBox.shrink();
+                    }
+                    final isIntervalTick = x % labelInterval == 0;
+                    final lastIntervalTick =
+                        maxX ~/ labelInterval * labelInterval;
+                    final isCrowdedRightEdge =
+                        x == maxX &&
+                        maxX - lastIntervalTick <= labelInterval / 2;
+                    if (!isIntervalTick || isCrowdedRightEdge) {
                       return const SizedBox.shrink();
                     }
                     return SideTitleWidget(
                       meta: meta,
-                      child: Text(labelFor(value.toInt()), style: labelStyle),
+                      child: Text(labelFor(x), style: labelStyle),
                     );
                   },
                 ),
